@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,6 +11,8 @@ import { MatListModule } from '@angular/material/list';
 @Component({
   selector: 'app-root',
   imports: [
+    RouterOutlet,
+    RouterLink,
     MatButtonModule,
     MatMenuModule,
     MatCardModule,
