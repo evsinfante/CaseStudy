@@ -18,4 +18,8 @@ export class VendorService {
   getVendors(): Observable<Vendor[]>{
     return this.http.get<Vendor[]>('http://localhost:8080/api/vendors');
   }
+
+  updateVendor(vendor : Vendor) : Observable<Vendor>{
+    return this.http.put<Vendor>('http://localhost:8080/api/vendors', vendor)
+  }
 }
