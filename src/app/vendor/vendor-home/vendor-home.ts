@@ -20,10 +20,10 @@ export class VendorHome implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vendorService.get().subscribe({
-      next: (payload: any) => {
+    this.vendorService.getVendors().subscribe({
+      next: (payload: Vendor[]) => {
         console.log(payload);
-        this.vendors.set(payload._embedded.vendors)
+        this.vendors.set(payload)
       },
       error: (e: Error) => console.error(e),
       complete: () => console.log('Complete!')
