@@ -9,6 +9,7 @@ import info5153.case_study.server.vendor.Vendor;
 import info5153.case_study.server.vendor.VendorRepository;
 
 
+
 @CrossOrigin 
 @RestController 
 public class VendorController {
@@ -20,5 +21,11 @@ public class VendorController {
     public ResponseEntity<Iterable<Vendor>> findAll() {
         Iterable<Vendor> vendors = vendorRepository.findAll();
         return new ResponseEntity<Iterable<Vendor>>(vendors, HttpStatus.OK);
+    }
+
+    @PutMapping("/api/vendors")
+    public ResponseEntity<Vendor> updateOne(@RequestBody Vendor vendor) {
+        Vendor updatedVendor = vendorRepository.save(vendor);
+        return new ResponseEntity<Vendor>(updatedVendor, HttpStatus.OK);
     }
 }
