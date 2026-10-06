@@ -1,12 +1,13 @@
 import { Component, InputSignal, input, OnInit, output } from '@angular/core';
-import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { MatLabel, MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { Vendor } from '../vendor';
-import { VENDOR_DEFAULT } from '../../constants';
+import { Vendor } from '@app/vendor/vendor';
+import { VENDOR_DEFAULT } from '@app/constants';
+import { ValidatePhone, ValidatePostalCode } from '@app/validators/phone.validator';
 
 
 @Component({
@@ -21,19 +22,20 @@ export class VendorDetails implements OnInit {
   vendor: InputSignal<Vendor> = input<Vendor>(VENDOR_DEFAULT);
   saved= output <Vendor>();
   closed = output <void>();
+  deleted = output<number>();
 
 
-  vendorForm: FormGroup = new FormGroup({
-    id: new FormControl(),
-    name: new FormControl(),
-    address: new FormControl(),
-    city: new FormControl(),
-    province: new FormControl(),
-    postalCode: new FormControl(),
-    phone: new FormControl(),
-    type: new FormControl(),
-    email: new FormControl(),
-  });
+ vendorForm: FormGroup = new FormGroup({
+  id: new FormControl(),
+  name: new FormControl('', Validators.compose([Validators.required])),
+  address: new FormControl('', Validators.compose([Validators.required])),
+  city: new FormControl('', Validators.compose([Validators.required])),
+  province: new FormControl('', Validators.compose([Validators.required])),
+  postalCode: new FormControl('', Validators.compose([Validators.required, ValidatePostalCode])),
+  phone: new FormControl('', Validators.compose([Validators.required, ValidatePhone])),
+  type: new FormControl('', Validators.compose([Validators.required])),
+  email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
+});
  
   ngOnInit(): void {
     this.vendorForm.setValue({
