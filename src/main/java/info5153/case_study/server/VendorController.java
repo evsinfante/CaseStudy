@@ -10,7 +10,7 @@ import info5153.case_study.server.vendor.VendorRepository;
 
 
 
-@CrossOrigin 
+@CrossOrigin(originPatterns = "http://localhost:*")
 @RestController 
 public class VendorController {
 
@@ -28,4 +28,17 @@ public class VendorController {
         Vendor updatedVendor = vendorRepository.save(vendor);
         return new ResponseEntity<Vendor>(updatedVendor, HttpStatus.OK);
     }
+
+    @DeleteMapping ("/api/vendors/{id}")
+    public ResponseEntity<Integer> deleteOne(@PathVariable long id){
+        int deletedCount = vendorRepository.deleteOne(id);
+        return new ResponseEntity<Integer>(deletedCount, HttpStatus.OK);
+    }
+
+    @PostMapping("/api/vendors")
+    public ResponseEntity<Vendor> createOne(@RequestBody Vendor vendor) {
+        Vendor newVendor = vendorRepository.save(vendor);
+        return new ResponseEntity<Vendor>(newVendor, HttpStatus.OK);
+    }
+
 }
